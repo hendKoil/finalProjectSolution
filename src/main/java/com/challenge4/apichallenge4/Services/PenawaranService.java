@@ -27,15 +27,20 @@ public class PenawaranService {
     public Penawaran submitPenawaran(PenawaranDto penawaranDto){
 //        List<User> user = userRepository.findByUserId(penawaranDto.getUser().getUserId());
         User user = userRepository.findByUserId(new Integer(penawaranDto.getUser().getUserId()));
-//        List<Produk> produk = produkRepo2.findByIdProduk(penawaranDto.getProduk().getIdProduk());
-        Produk produk = produkRepo2.findByIdProduk(new Integer(penawaranDto.getProduk().getIdProduk()));
         Penawaran save = new Penawaran();
-        save.setPenawaranId(penawaranDto.getPenawaranId());
-        save.setHargaTawar(penawaranDto.getHargaTawar());
-        save.setUserId(user.getUserId());
-        save.setProdukId(produk.getIdProduk());
-        save.setCreatedAt(new Date());
-        save.setStatus(penawaranDto.getStatus());
+        if(user == null ){
+            return null;
+        }else {
+//        List<Produk> produk = produkRepo2.findByIdProduk(penawaranDto.getProduk().getIdProduk());
+            Produk produk = produkRepo2.findByIdProduk(new Integer(penawaranDto.getProduk().getIdProduk()));
+
+            save.setPenawaranId(penawaranDto.getPenawaranId());
+            save.setHargaTawar(penawaranDto.getHargaTawar());
+            save.setUserId(user.getUserId());
+            save.setProdukId(produk.getIdProduk());
+            save.setCreatedAt(new Date());
+            save.setStatus(penawaranDto.getStatus());
+        }
         return penawaranRepository.save(save);
     }
 }

@@ -79,6 +79,7 @@ public class CustomizeFilterConfig extends UsernamePasswordAuthenticationFilter 
         map.put("userId", userLoginService.findByEmail(user.getUsername()).getUserId());
         map.put("access_token", accessToken);
         map.put("refresh_token", resreshToken);
+        response.setStatus(202);
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), map);
     }
